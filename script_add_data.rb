@@ -14,7 +14,7 @@ db.exec("INSERT INTO rooms (zone_id, name, area, max_people) VALUES
  (1, 'room', 100, 5)
 ;")
 
-db.exec("INSERT INTO fixtures (rooms_id, name, type) VALUES
+db.exec("INSERT INTO fixtures (room_id, name, type) VALUES
 (1, 'fix', 'Door');")
 
 db.exec("INSERT INTO marketing_materials (fixture_id, name, cost, type) VALUES
