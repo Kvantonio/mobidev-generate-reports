@@ -3,11 +3,12 @@ require 'pg'
 db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
 db.exec("INSERT INTO offices (title, address, city, state, phone, LOB, type) VALUES
- ('value1', 'value2', 'value3', 'value4', 1212121, 'value6', 'alue7')
+ ('value1', 'value2', 'value3', 'value4', 12127684242, 'value6', 'alue7')
 ;")
 
-db.exec("INSERT INTO zones (office_id, type) VALUES
+res = db.exec("INSERT INTO zones (office_id, type) VALUES
  (1, 'value2')
+ returning id, type
 ;")
 
 db.exec("INSERT INTO rooms (zone_id, name, area, max_people) VALUES

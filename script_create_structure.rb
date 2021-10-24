@@ -2,7 +2,8 @@ require 'pg'
 
 db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
-db.exec("CREATE TYPE fixtures_type AS ENUM (
+db.exec("
+CREATE TYPE fixtures_type AS ENUM (
   'Door',
   'Window',
   'Wall poster',
@@ -18,7 +19,7 @@ db.exec('CREATE TABLE IF NOT EXISTS "offices" (
     "address" varchar NOT NULL,
     "city" varchar NOT NULL,
     "state" varchar NOT NULL,
-    "phone" int NOT NULL,
+    "phone" bigint NOT NULL,
     "lob" varchar NOT NULL,
     "type" varchar NOT NULL,
     UNIQUE("title", "city", "state", "phone")
