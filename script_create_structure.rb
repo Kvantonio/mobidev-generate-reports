@@ -2,6 +2,16 @@ require 'pg'
 
 db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
+db.exec("CREATE TYPE fixtures_type AS ENUM (
+  'Door',
+  'Window',
+  'Wall poster',
+  'Table',
+  'ATM Wall',
+  'Flag',
+  'Standing desk'
+);")
+
 db.exec('CREATE TABLE IF NOT EXISTS "offices" (
     "id" SERIAL PRIMARY KEY,
     "title" varchar NOT NULL,
@@ -30,12 +40,20 @@ db.exec('CREATE TABLE IF NOT EXISTS "rooms" (
     UNIQUE(zone_id, name)
   );')
 
+
 db.exec("CREATE TABLE IF NOT EXISTS fixtures (
     id SERIAL PRIMARY KEY,
     room_id int NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
     name varchar NOT NULL,
-    \"type\" text CHECK(array_position(ARRAY['Door', 'Window', 'Wall poster', 'Table'], \"type\") IS NOT NULL )
+    \"type\" fixtures_type
   );")
+
+# db.exec("CREATE TABLE IF NOT EXISTS fixtures (
+#     id SERIAL PRIMARY KEY,
+#     room_id int NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
+#     name varchar NOT NULL,
+#     \"type\" text CHECK(array_position(ARRAY['Door', 'Window', 'Wall poster', 'Table'], \"type\") IS NOT NULL )
+#   );")
 db.exec('CREATE TABLE IF NOT EXISTS "marketing_materials" (
     id SERIAL PRIMARY KEY,
     fixture_id int NOT NULL UNIQUE REFERENCES fixtures (id) ON DELETE CASCADE,
