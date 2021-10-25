@@ -22,7 +22,7 @@ db.exec('CREATE TABLE IF NOT EXISTS "offices" (
     "phone" bigint NOT NULL,
     "lob" varchar NOT NULL,
     "type" varchar NOT NULL,
-    UNIQUE("title", "city", "state", "phone")
+    UNIQUE("title", "address", "city", "state", "phone")
   );')
 
 db.exec('CREATE TABLE IF NOT EXISTS "zones" (
