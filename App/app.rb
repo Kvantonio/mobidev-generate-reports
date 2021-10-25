@@ -1,6 +1,7 @@
 require 'csv'
 require 'pg'
-require_relative 'script_add_data'
+require_relative 'insert_module'
+
 class App
   include InsertData
   def call(env)
