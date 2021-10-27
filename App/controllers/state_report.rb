@@ -8,7 +8,7 @@ class StateReport
     template = File.read("./App/templates/states_report.erb")
     db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
-    if !req.path.split('/')[3]
+    if !env['rack.route_params'][:state]
 
       states = db.exec("SELECT DISTINCT state FROM offices;")
       @res= []
@@ -19,7 +19,7 @@ class StateReport
 
 
     else
-      @res = db.exec_params("Select * from offices where state=$1", [req.path.split('/')[3].upcase])
+      @res = db.exec_params("Select * from offices where state=$1", [env['rack.route_params'][:state].upcase])
 
       if @res.first
         @res= [@res]
