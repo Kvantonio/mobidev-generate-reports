@@ -1,7 +1,11 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
+# challenge 2
 gem 'pg'
+
+# challenge 3
 gem 'rack'
 gem 'puma'
+
+# challenge 4
+gem 'erb'

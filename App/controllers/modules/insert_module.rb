@@ -2,7 +2,7 @@ require 'pg'
 
 module InsertData
 
-  def pars(all_data)
+  def pars_and_add_to_db(all_data)
 
     db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
