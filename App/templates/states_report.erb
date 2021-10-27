@@ -47,28 +47,30 @@
 
     <div class='row'>
       <div class="col-sm-4">
-         <div class='logo'>
-           <div class="title">Logo</div>
-         </div>
+        <div class='logo'>
+          <div class="title">Logo</div>
+        </div>
       </div>
       <div class="col-sm-8">
-          <h1>State Report</h1>
+        <h1><%=  @res.length == 1? "State Report": "State Reports" %> </h1>
       </div>
     </div>
 
 
-    <div class="row">
-      <div class="col-2 hr-block"><h2><%= @res[0]["state"] %></h2></div>
-      <div class="col-10 hr-block"></div>
 
-      <div class="w-100 d-none d-md-block"></div>
-      <%@res.each do |office|%>
+    <% @res.each do |state| %>
+      <div class="row">
+        <div class="col-2 hr-block"><h2><%= state[0]["state"] %></h2></div>
+        <div class="col-10 hr-block"></div>
 
-        <div class="col-2">
+        <div class="w-100 d-none d-md-block"></div>
+        <% state.each do |office| %>
 
-        </div>
-        <div class="col-2">
-          <div class="center"><%= office["title"]%></div>
+          <div class="col-2">
+
+          </div>
+          <div class="col-2">
+            <div class="center"><%= office["title"] %></div>
         </div>
         <div class="col-2">
           <div class="center"><%= office["type"]%></div>
@@ -79,53 +81,10 @@
         <div class="col-2">
           <div class="center"><%= office["lob"]%></div>
         </div>
-
       <%end%>
 
+      </div>
+    <% end %>
     </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col-2 hr-block"><h2>State</h2></div>
-      <div class="col-10 hr-block"></div>
-
-      <div class="w-100 d-none d-md-block"></div>
-
-      <div class="col-2">
-      </div>
-      <div class="col-2">
-        <div class="center">Office</div>
-      </div>
-      <div class="col-2">
-        <div class="center">Type</div>
-      </div>
-      <div class="col-4">
-        <div class="center">address</div>
-      </div>
-      <div class="col-2">
-        <div class="center">lob</div>
-    </div>
-
-
-      <!-- line two -->
-
-      <div class="col-2">
-      </div>
-      <div class="col-2">
-        <div class="center">Office</div>
-      </div>
-      <div class="col-2">
-        <div class="center">Type</div>
-      </div>
-      <div class="col-4">
-        <div class="center">address</div>
-      </div>
-      <div class="col-2">
-        <div class="center">lob</div>
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>

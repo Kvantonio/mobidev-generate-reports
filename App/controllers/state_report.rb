@@ -9,13 +9,20 @@ class StateReport
     db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
     if !req.path.split('/')[3]
-      #TODO: do page with all states information
-      return [200, { "Content-Type" => "text/html" }, ["fix this"]]
+
+      states = db.exec("SELECT DISTINCT state FROM offices;")
+      @res= []
+      states.each do |state|
+        @res << db.exec("SELECT * FROM offices WHERE state='#{state["state"]}'")
+      end
+      content = ERB.new(template)
+
 
     else
       @res = db.exec_params("Select * from offices where state=$1", [req.path.split('/')[3].upcase])
 
       if @res.first
+        @res= [@res]
         content = ERB.new(template)
       else
         return [400, { "Content-Type" => "text/html" }, ["<h1>No information</h1>"]]

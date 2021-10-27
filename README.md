@@ -42,6 +42,24 @@ rackup ./App/config.ru
 
 ## Documentation
 
+```
+mobidev_generate_reports/
+ ├── App/
+ │   ├── config.ru
+ │   ├── controllers/
+ │   │   ├── modules/
+ │   │   │   └── insert_module.rb
+ │   │   ├── state_report.rb
+ │   │   └── upload_data.rb
+ │   └── templates/
+ │       └── states_report.erb
+ ├── Gemfile
+ ├── README.md
+ ├── database_diagram.png
+ ├── script_create_structure.rb
+ └── script_drop_tables.rb
+```
+
 ### Database
 
 ![](database_diagram.png)
