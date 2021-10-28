@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Appendix C</title>
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+  <style media="screen">
+    h1 {
+      text-align: center;
+      padding: 45px;
+    }
+
+    h2 {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      margin: 25px auto;
+      width: 60%;
+      height: 100px;
+      border: 1px solid black;
+    }
+
+
+    .title {
+        margin: 25px auto;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    .hr-block {
+      border-bottom: 1px solid black;
+    }
+
+    .center {
+      text-align: center;
+      padding: 15px;
+    }
+
+  </style>
+  <div class="container">
+
+    <div class='row'>
+      <div class="col-sm-4">
+        <div class='logo'>
+          <div class="title">Logo</div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <h1>"Fixture Report"</h1>
+      </div>
+    </div>
+
+
+
+    <% @offices_by_fixture_type.each_with_index do |(fixture_type, value), i| %>
+      <div class="row">
+        <div class="col-4 hr-block"><h2><%= fixture_type %></h2></div>
+        <div class="col-7 hr-block"></div>
+        <div class="col-1 hr-block"><h2><%= @total_count[i] %></h2></div>
+        <div class="w-100 d-none d-md-block"></div>
+        <% value.each do |office, sub_count| %>
+
+          <div class="col-1">
+
+          </div>
+          <div class="col-2">
+            <div class="center"><%= office["title"] %></div>
+        </div>
+        <div class="col-2">
+          <div class="center"><%= office["type"]%></div>
+        </div>
+        <div class="col-4">
+          <div class="center"><%= office["address"]%></div>
+        </div>
+        <div class="col-2">
+          <div class="center"><%= office["lob"]%></div>
+        </div>
+          <div class="col-1">
+            <div class="center"><%= sub_count%></div>
+          </div>
+      <%end%>
+
+      </div>
+    <% end %>
+    </div>
+</body>
+</html>
