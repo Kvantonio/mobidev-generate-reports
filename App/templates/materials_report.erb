@@ -1,50 +1,14 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Appendix D</title>
-    <link rel="stylesheet" href="./stylesheets/style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <title>Appendix D</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
-
-  <style media="screen">
-    h1 {
-      text-align: center;
-      padding: 45px;
-    }
-
-    h2 {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .logo {
-      margin: 25px auto;
-      width: 60%;
-      height: 100px;
-      border: 1px solid black;
-    }
-
-
-    .title {
-        margin: 25px auto;
-        text-align: center;
-        font-size: 25px;
-    }
-
-    .hr-block {
-      border-bottom: 1px solid black;
-    }
-
-    .center {
-      text-align: center;
-      padding: 15px;
-    }
-
-  </style>
   <div class="container">
-
     <div class='row'>
       <div class="col-sm-4">
         <div class='logo'>
@@ -58,38 +22,65 @@
 
 
 
-    <% @temp.each do |office, materials| %>
+
+
+    <% @data_materials.each_with_index do |(office, materials), index| %>
       <div class="row">
         <div class="col-4 hr-block"><h2><%= office %></h2></div>
         <div class="col-7 hr-block"></div>
-        <div class="col-1 hr-block"><h3><%= @data_cost[office][:total_cost]%></h3></div>
+        <div class="col-1 hr-block"><h3><%= @total_cost[index] %></h3></div>
 
         <div class="w-100 d-none d-md-block"></div>
-        <% materials.each do |material| %>
+        <% materials.each do |material, sub_cost| %>
 
-          <div class="col-2">
-
-          </div>
-
-          <div class="col-5">
+          <div class="col-7">
 
           </div>
 
           <div class="col-3">
-            <div class="center"><%= material["type"] %></div>
+            <div class="center"><%= material %></div>
           </div>
+
           <div class="col-1">
 
           </div>
-        <div class="col-1">
-          <div class="center"><%= @data_cost[office][material["type"]]%></div>
-        </div>
+          <div class="col-1">
+            <div class="center"><%= sub_cost %></div>
+          </div>
 
 
-      <%end%>
+        <% end %>
+        <canvas id="doughnut-chart<%= index %>" width="400" height="150"></canvas>
+        <script>
+            new Chart(document.getElementById("doughnut-chart<%= index %>"), {
+                type: 'doughnut',
+                data: {
+                    labels: <%= materials.keys %>,
+                    datasets: [
+                        {
+                            backgroundColor: ['rgb(255, 99, 132)',
+
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(255, 159, 64)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'],
+                            data: <%= materials.values %>
+                        }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Marketing Material Costs By Type'
+                    }
+                }
+            });
+        </script>
 
       </div>
     <% end %>
-    </div>
+  </div>
 </body>
 </html>

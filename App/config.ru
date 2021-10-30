@@ -1,4 +1,5 @@
 require 'rack/router'
+require 'rack/lobster'
 
 require_relative 'controllers/upload_data'
 require_relative 'controllers/state_report'
@@ -14,5 +15,5 @@ my_app = Rack::Router.new {
   get '/reports/offices/:id/fixture_types'=>FixtureReport.new
   get '/reports/offices/marketing_materials'=>CostReport.new
 }
-
+use Rack::Static, :urls => ["/"], :cascade => true
 run my_app

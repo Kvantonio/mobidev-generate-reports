@@ -4,13 +4,42 @@ require 'erb'
 class FixtureReport
   def call(env)
     db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
-    @offices_by_fixture_type = get_offices_by_type db
-    if !@offices_by_fixture_type
-      return [403, { "Content-Type" => "text/html" }, ["<h1>No data!</h1>"]]
-    end
-    @total_count = total_count @offices_by_fixture_type
+    if !env['rack.route_params'][:id]
+      @offices_by_fixture_type = get_offices_by_type db
+      if !@offices_by_fixture_type
+        return [403, { "Content-Type" => "text/html" }, ["<h1>No data!</h1>"]]
+      end
+      @total_count = total_count @offices_by_fixture_type
+      template = File.read("./App/templates/fixture_report.erb")
+    else
 
-    template = File.read("./App/templates/fixture_report.erb")
+      @office_title = db.exec("SELECT title FROM offices WHERE id = #{env['rack.route_params'][:id].to_i}")
+      unless @office_title.first
+        return [403, { "Content-Type" => "text/html" }, ["<h1>No office with this id </h1>"]]
+      end
+      @office_title = @office_title[0]["title"]
+      @fixtures_by_office = db.exec("SELECT offices.title, fixtures.type
+         FROM ((( offices
+         INNER JOIN zones ON offices.id = zones.office_id)
+         INNER JOIN rooms ON zones.id = rooms.zone_id)
+         INNER JOIN fixtures ON rooms.id = fixtures.room_id)
+         WHERE offices.id = #{env['rack.route_params'][:id].to_i};
+         ")
+
+      @data = {}
+      @fixtures_by_office.each do |v|
+        if @data[v["type"]]
+          @data[v["type"]] += 1
+        else
+          @data[v["type"]] =1
+        end
+      end
+
+
+
+      template = File.read("./App/templates/fixture_report_by_office.erb")
+    end
+
     content = ERB.new(template)
     [200, { "Content-Type" => "text/html" }, [content.result(binding)]]
   end
