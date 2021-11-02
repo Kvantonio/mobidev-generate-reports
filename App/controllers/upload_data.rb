@@ -24,7 +24,7 @@ class UploadData
       "<h1>Upload file</h1>
       <form method='post' enctype='multipart/form-data'>
        <div>
-         <label for='file'>Choose file to upload</label>
+         <label for='file'>Choose file to upload(CSV)</label>
          <input type='file' id='file' name='file' multiple required>
        </div>
        <div>

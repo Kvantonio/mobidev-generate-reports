@@ -6,8 +6,9 @@ class SearchOffices
     db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
     req = Rack::Request.new(env)
 
-    if req.post?
-
+    if req.post? && req.POST["search"].length != 0
+      @offices = db.exec("SELECT * FROM offices
+                           WHERE ts_q @@ to_tsquery('english', '#{req.POST["search"]}');")
     else
       @offices = db.exec("SELECT id, title FROM offices;")
     end

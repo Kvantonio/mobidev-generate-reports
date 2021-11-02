@@ -6,37 +6,43 @@ class InstallationReport
   def call(env)
     db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
 
-#     @data_by_office = db.exec("SELECT row_to_json(office)
-# FROM (
-#     SELECT zones.type,  (
-#              SELECT array_to_json(array_agg(row_to_json(z)))
-#              FROM (
-#                       SELECT rooms.name, (
-#                           SELECT array_to_json(array_agg(row_to_json(f)))
-#                           FROM (
-#                                    SELECT fixtures.type, fixtures.name,
-#                                           mm.type m_type, mm.name m_name
-#                                    FROM fixtures INNER JOIN marketing_materials mm on fixtures.id = mm.fixture_id
-#                                    WHERE fixtures.room_id = rooms.id
-#                                ) f
-#                       ) as fixtures
-#                       FROM rooms
-#                       WHERE rooms.zone_id = zones.id
-#                   ) z
-#          ) as zones
-#          FROM zones
-#          WHERE zones.office_id = #{env['rack.route_params'][:id]}
-# ) office ;")
-#
-#     # @response = JSON.parse(@data_by_office[0])
-#
-#
-#     @data_by_office.each do |k, v|
-#       puts k, "===", v
-#     end
+    @office = db.exec("SELECT * FROM offices WHERE id = #{env['rack.route_params'][:id]};")[0]
 
-    # template = File.read("./App/templates/materials_report.erb")
-    # content = ERB.new(template)
-    # [200, { "Content-Type" => "text/html" }, [content.result(binding)]]
+    zones =  db.exec("SELECT * FROM zones WHERE office_id = #{env['rack.route_params'][:id]};")
+
+
+    rooms = {}
+    zones.each do |zone|
+      rooms[zone["type"]] = db.exec("SELECT * FROM rooms WHERE zone_id = #{zone["id"]};")
+    end
+
+    @data_by_office = {}
+
+    rooms.each do |k,v|
+      material = {}
+      v.each do |room|
+        material_fix = db.exec("SELECT mm.type m_type, mm.name m_name,
+                                             fix.name f_name, fix.type f_type
+                        FROM( (rooms INNER JOIN fixtures fix ON rooms.id = fix.room_id)
+                        INNER JOIN marketing_materials mm ON fix.id = mm.fixture_id)
+                        WHERE rooms.id = #{room["id"]};"
+        )
+
+        material.store(room["name"], material_fix)
+        @data_by_office[k]=material
+      end
+    end
+
+
+
+    @count = db.exec("SELECT SUM(rooms.area) area, SUM(rooms.max_people) max_people
+            FROM (rooms INNER JOIN zones ON rooms.zone_id = zones.id)
+            WHERE zones.office_id = #{env['rack.route_params'][:id]};")[0]
+
+
+
+    template = File.read("./App/templates/office_installation.erb")
+    content = ERB.new(template)
+    [200, { "Content-Type" => "text/html" }, [content.result(binding)]]
   end
 end

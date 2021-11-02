@@ -2,20 +2,53 @@
 
 <head>
     <title>Appendix E</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/search.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+
+
 <body>
   <div class="container">
 
-    <div class='row'>
+
+      <form method="post" >
+
+      </form>
+
+
+
+    <div class="container mt-5">
+      <div class="row d-flex justify-content-center ">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="input-box"> <input type="text" class="form-control"> <i class="fa fa-search"></i> </div>
+            <div class="list border-bottom"> <i class="fa fa-fire"></i>
+              <div class="d-flex flex-column ml-3"> <span>Client communication policy</span> <small>#politics - may - @max</small> </div>
+            </div>
+            <div class="list border-bottom"> <i class="fa fa-yelp"></i>
+              <div class="d-flex flex-column ml-3"> <span>Major activity done</span> <small>#news - nov - @settings</small> </div>
+            </div>
+            <div class="list border-bottom"> <i class="fa fa-fire"></i>
+              <div class="d-flex flex-column ml-3"> <span>Calling to USA Clients</span> <small>#entertainment - dec - @tunes</small> </div>
+            </div>
+            <div class="list"> <i class="fa fa-weibo"></i>
+              <div class="d-flex flex-column ml-3"> <span>Client communication policy</span> <small>#politics - may - @max</small> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
       <% @offices.each do |office| %>
+      <div class='row'>
         <a href="http://127.0.0.1:9292/reports/offices/<%= office["id"] %>/installation">
           <%= office["title"] %>
         </a>
         <br>
+        </div>
       <% end %>
-    </div>
+
   </div>
 </body>
 </html>

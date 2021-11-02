@@ -63,6 +63,11 @@ db.exec('CREATE TABLE IF NOT EXISTS "marketing_materials" (
     type varchar NOT NULL
   );')
 
+db.exec("ALTER TABLE offices ADD COLUMN IF NOT EXISTS ts_q tsvector
+         GENERATED ALWAYS AS
+             (setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
+              setweight(to_tsvector('english', coalesce(address, '')), 'B')) STORED;")
+
 db.exec('ALTER TABLE "rooms" ADD FOREIGN KEY ("zone_id") REFERENCES "zones" ("id");')
 
 db.exec('ALTER TABLE "zones" ADD FOREIGN KEY ("office_id") REFERENCES "offices" ("id");')
@@ -70,3 +75,4 @@ db.exec('ALTER TABLE "zones" ADD FOREIGN KEY ("office_id") REFERENCES "offices" 
 db.exec('ALTER TABLE "fixtures" ADD FOREIGN KEY ("room_id") REFERENCES "rooms" ("id");')
 
 db.exec('ALTER TABLE "marketing_materials" ADD FOREIGN KEY ("fixture_id") REFERENCES "fixtures" ("id");')
+
