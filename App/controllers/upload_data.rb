@@ -1,7 +1,8 @@
 require 'csv'
-require 'pg'
+require 'erb'
 
 require_relative './modules/insert_module'
+
 
 class UploadData
   include InsertData
@@ -9,7 +10,6 @@ class UploadData
   def call(env)
     req = Rack::Request.new(env)
     if req.post?
-
       if req.params['file']
         table = CSV.parse(File.read(req.params['file'][:tempfile]), headers: true)
         pars_and_add_to_db table
@@ -18,21 +18,11 @@ class UploadData
         return [400, { "Content-Type" => "text/html" }, ["<h1>Bad req</h1>"]]
       end
     end
-    status = 200
-    headers = { "Content-Type" => "text/html" }
-    body = [
-      "<h1>Upload file</h1>
-      <form method='post' enctype='multipart/form-data'>
-       <div>
-         <label for='file'>Choose file to upload(CSV)</label>
-         <input type='file' id='file' name='file' multiple required>
-       </div>
-       <div>
-         <button>Submit</button>
-       </div>
-      </form>"
-    ]
 
-    [status, headers, body]
+
+
+    template = File.read("./App/templates/upload.erb")
+    content = ERB.new(template)
+    [200, { "Content-Type" => "text/html" }, [content.result(binding)]]
   end
 end

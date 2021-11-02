@@ -1,4 +1,3 @@
-require 'pg'
 require 'erb'
 
 class Root

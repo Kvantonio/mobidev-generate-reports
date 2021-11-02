@@ -3,6 +3,7 @@
 <head>
     <title>Appendix E</title>
     <link rel="stylesheet" href="/css/search.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
@@ -11,44 +12,38 @@
   <div class="container">
 
 
-      <form method="post" >
-
-      </form>
 
 
 
-    <div class="container mt-5">
-      <div class="row d-flex justify-content-center ">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="input-box"> <input type="text" class="form-control"> <i class="fa fa-search"></i> </div>
-            <div class="list border-bottom"> <i class="fa fa-fire"></i>
-              <div class="d-flex flex-column ml-3"> <span>Client communication policy</span> <small>#politics - may - @max</small> </div>
-            </div>
-            <div class="list border-bottom"> <i class="fa fa-yelp"></i>
-              <div class="d-flex flex-column ml-3"> <span>Major activity done</span> <small>#news - nov - @settings</small> </div>
-            </div>
-            <div class="list border-bottom"> <i class="fa fa-fire"></i>
-              <div class="d-flex flex-column ml-3"> <span>Calling to USA Clients</span> <small>#entertainment - dec - @tunes</small> </div>
-            </div>
-            <div class="list"> <i class="fa fa-weibo"></i>
-              <div class="d-flex flex-column ml-3"> <span>Client communication policy</span> <small>#politics - may - @max</small> </div>
-            </div>
+
+
+
+    <div class="container d-flex justify-content-center">
+      <div class="card mt-5 p-4">
+
+        <form method="post" >
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" name="search">
+            <div class="input-group-append"><button class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+          </div> <span class="text mb-4"><%= @offices.ntuples %> found offices</span>
+        </form>
+
+        <% @offices.each do |office| %>
+        <div class="d-flex flex-row justify-content-between mb-3">
+
+          <div class="d-flex flex-column p-3">
+            <a href="http://127.0.0.1:9292/reports/offices/<%= office["id"] %>/installation">
+            <%= office["title"] %>
+            </a>
+            <p class="mb-1"><%= office["address"] %></p>
+
           </div>
         </div>
+        <% end %>
       </div>
     </div>
 
-
-      <% @offices.each do |office| %>
-      <div class='row'>
-        <a href="http://127.0.0.1:9292/reports/offices/<%= office["id"] %>/installation">
-          <%= office["title"] %>
-        </a>
-        <br>
-        </div>
-      <% end %>
-
   </div>
+
 </body>
 </html>
