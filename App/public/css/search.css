@@ -1,15 +1,38 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap');
 .card {
     width: 500px;
     border: none;
-    border-radius: 20px
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
+
+.title_block{
+    color: #5878FF;
+    margin: 0;
+    font-size: 20px;
+}
+
+.block_inst{
+    text-decoration: none;
+    color: black;
+}
+
+.block_inst:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.block_t:hover{
+    box-shadow: 5px 5px 5px #cbcbcb;
+}
+
 
 .form-control {
     border-radius: 7px;
     border: 1.5px solid #E3E6ED
 }
+
+
 
 input.form-control:focus {
     box-shadow: none;

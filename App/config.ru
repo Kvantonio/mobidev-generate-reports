@@ -13,10 +13,13 @@ my_app = Rack::Router.new {
 
   get '/upload_data/'=>UploadData.new
   post '/upload_data/'=>UploadData.new
+
   get '/reports/states/'=>StateReport.new
   get '/reports/states/:state'=>StateReport.new
+
   get '/reports/offices/fixture_types'=>FixtureReport.new
   get '/reports/offices/:id/fixture_types'=>FixtureReport.new
+
   get '/reports/offices/marketing_materials'=>CostReport.new
 
   get '/reports/offices/installation'=>SearchOffices.new

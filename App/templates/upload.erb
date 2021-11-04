@@ -4,22 +4,32 @@
 
 <head>
   <title>Upload file</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/upload.css">
-  <link rel="stylesheet/less" type="text/css" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/wtf-forms.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
-<form method="post">
-<div class="file-upload">
-  <div class="file-upload-select">
-    <div class="file-select-button" >Choose File</div>
-    <div class="file-select-name">No file chosen...</div>
-    <input type="file" name="file" id="file-upload-input">
+<a href="http://127.0.0.1:9292/"><button class="btn"> <i class="fa fa-home"></i></button></a>
+<div class="container">
+<h2>Upload file</h2>
+<form method='post' enctype='multipart/form-data'>
+  <div>
+    <div class="file-upload">
+      <div class="file-upload-select">
+        <div class="file-select-button" >Choose File</div>
+        <div class="file-select-name">No file chosen...</div>
+        <input type="file" name="file" id="file-upload-input" multiple>
+      </div>
+    </div>
+
   </div>
-</div>
+  <input type="submit" class="submit_file">
 </form>
+
+</div>
 <script>
     let fileInput = document.getElementById("file-upload-input");
     let fileSelect = document.getElementsByClassName("file-upload-select")[0];
@@ -31,7 +41,6 @@
         let selectName = document.getElementsByClassName("file-select-name")[0];
         selectName.innerText = filename;
     }
-
 </script>
 
 </body>

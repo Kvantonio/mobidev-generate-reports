@@ -1,8 +1,21 @@
-body {
+.container {
     width: 728px;
     margin: 64px auto;
-
     text-align: center;
+}
+
+.submit_file{
+    display: flex;
+    box-shadow: none;
+    color: #dbdbdb;
+    cursor: pointer;
+    text-align: center;
+    background: #1a242f;
+    position: relative;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 5px auto;
+    outline: none;
 }
 
 .file-upload .file-upload-select {

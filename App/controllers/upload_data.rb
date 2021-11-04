@@ -13,7 +13,6 @@ class UploadData
       if req.params['file']
         table = CSV.parse(File.read(req.params['file'][:tempfile]), headers: true)
         pars_and_add_to_db table
-
       else
         return [400, { "Content-Type" => "text/html" }, ["<h1>Bad req</h1>"]]
       end
