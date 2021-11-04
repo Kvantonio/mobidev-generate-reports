@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'erb'
 
 class Root
   def call(env)
-    template = File.read("./App/templates/root.erb")
+    template = File.read('./App/templates/root.erb')
     content = ERB.new(template)
-    [200, { "Content-Type" => "text/html" }, [content.result(binding)]]
+    [200, { 'Content-Type' => 'text/html' }, [content.result(binding)]]
   end
 end

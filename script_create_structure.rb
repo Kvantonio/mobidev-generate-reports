@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'pg'
 
-db = PG::Connection.open(dbname: 'Task_one', password: "12345678")
+db = PG::Connection.open(dbname: 'Task_one', password: '12345678')
 
 db.exec("
 CREATE TYPE fixtures_type AS ENUM (
@@ -41,7 +43,6 @@ db.exec('CREATE TABLE IF NOT EXISTS "rooms" (
     UNIQUE(zone_id, name)
   );')
 
-
 db.exec("CREATE TABLE IF NOT EXISTS fixtures (
     id SERIAL PRIMARY KEY,
     room_id int NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
@@ -75,4 +76,3 @@ db.exec('ALTER TABLE "zones" ADD FOREIGN KEY ("office_id") REFERENCES "offices" 
 db.exec('ALTER TABLE "fixtures" ADD FOREIGN KEY ("room_id") REFERENCES "rooms" ("id");')
 
 db.exec('ALTER TABLE "marketing_materials" ADD FOREIGN KEY ("fixture_id") REFERENCES "fixtures" ("id");')
-
