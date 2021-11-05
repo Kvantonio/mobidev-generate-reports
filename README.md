@@ -43,19 +43,36 @@ rackup ./App/config.ru
 ## Documentation
 
 ```
-mobidev_generate_reports/
+mobidev-generate-reports/
  ├── App/
- │   ├── config.ru
- │   ├── controllers/
- │   │   ├── modules/
- │   │   │   └── insert_module.rb
- │   │   ├── state_report.rb
- │   │   └── upload_data.rb
- │   └── templates/
- │       └── states_report.erb
+ │    ├── config.ru
+ │    ├── controllers/
+ │    │    ├── fixture_report.rb
+ │    │    ├── marketing_cost_report.rb
+ │    │    ├── modules/
+ │    │    │   └── insert_module.rb
+ │    │    ├── office_installation_report.rb
+ │    │    ├── root.rb
+ │    │    ├── search_office.rb
+ │    │    ├── state_report.rb
+ │    │    └── upload_data.rb
+ │    ├── public/
+ │    │    └── css/
+ │    │        ├── installation.css
+ │    │        ├── search.css
+ │    │        ├── styles.css
+ │    │        └── upload.css
+ │    └── templates/
+ │        ├── fixture_report.erb
+ │        ├── fixture_report_by_office.erb
+ │        ├── materials_report.erb
+ │        ├── office_installation.erb
+ │        ├── root.erb
+ │        ├── search_offices_reports.erb
+ │        ├── states_report.erb
+ │        └── upload.erb
  ├── Gemfile
- ├── README.md
- ├── database_diagram.png
+ ├── env.rb
  ├── script_create_structure.rb
  └── script_drop_tables.rb
 ```

@@ -8,11 +8,10 @@ Bundler.require(:default)
 
 DB = PG::Connection.open(dbname: 'Task_one', password: '12345678')
 
-DB.exec("SELECT 'test'") do |result|
-  puts "################################"
+DB.exec("SELECT 'test'") do
+  puts '################################'
   puts
-  puts "Succeeded connection to database"
+  puts 'Succeeded connection to database'
   puts
-  puts "################################"
-
+  puts '################################'
 end

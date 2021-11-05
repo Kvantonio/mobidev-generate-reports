@@ -1,5 +1,6 @@
-require_relative File.join(File.dirname(__FILE__), '../../env.rb')
+# frozen_string_literal: true
 
+require_relative File.join(File.dirname(__FILE__), '../../env.rb')
 require_relative './modules/insert_module'
 
 class UploadData
