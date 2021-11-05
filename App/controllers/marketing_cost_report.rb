@@ -1,20 +1,17 @@
 # frozen_string_literal: true
 
-require 'pg'
-require 'erb'
+require_relative File.join(File.dirname(__FILE__), '../../env.rb')
 
 class CostReport
   def call(env)
-    db = PG::Connection.open(dbname: 'Task_one', password: '12345678')
-
     @data_materials = {}
 
-    offices = db.exec('SELECT id, title FROM offices;')
+    offices = DB.exec('SELECT id, title FROM offices;')
 
     temp = {}
     offices.each do |office|
       @data_materials[office['title']] = {}
-      temp[office['title']] = db.exec("SELECT marketing_materials.type, marketing_materials.cost
+      temp[office['title']] = DB.exec("SELECT marketing_materials.type, marketing_materials.cost
          FROM (((( offices
          INNER JOIN zones ON offices.id = zones.office_id)
          INNER JOIN rooms ON zones.id = rooms.zone_id)
@@ -39,7 +36,7 @@ class CostReport
       @total_cost << total_cost
     end
 
-    template = File.read('./App/templates/materials_report.erb')
+    template = File.read(File.join(File.dirname(__FILE__), '../templates/materials_report.erb'))
     content = ERB.new(template)
     [200, { 'Content-Type' => 'text/html' }, [content.result(binding)]]
   end

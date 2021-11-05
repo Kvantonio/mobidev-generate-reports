@@ -1,12 +1,11 @@
 # frozen_string_literal: true
+
 require 'pg'
 
 module InsertData
   def pars_and_add(all_data)
-    db = PG::Connection.open(dbname: 'Task_one', password: '12345678')
-
     all_data&.each do |data|
-      office = get_or_create db, 'offices', {
+      office = get_or_create DB, 'offices', {
         title: data['Office'],
         address: data['Office address'],
         city: data['Office city'],
@@ -16,25 +15,25 @@ module InsertData
         type: data['Office type']
       }
 
-      zone = get_or_create db, 'zones', {
+      zone = get_or_create DB, 'zones', {
         office_id: office,
         type: data['Zone']
       }
 
-      room = get_or_create db, 'rooms', {
+      room = get_or_create DB, 'rooms', {
         zone_id: zone,
         name: data['Room'],
         area: data['Room area'],
         max_people: data['Room max people']
       }
 
-      fixture = get_or_create db, 'fixtures', {
+      fixture = get_or_create DB, 'fixtures', {
         room_id: room,
         name: data['Fixture'],
         type: data['Fixture Type']
       }
 
-      get_or_create db, 'marketing_materials', {
+      get_or_create DB, 'marketing_materials', {
         fixture_id: fixture,
         name: data['Marketing material'],
         cost: data['Marketing material cost'],
