@@ -1,6 +1,6 @@
 # Generate reports
 
-The program help management to get reporting about marketing materials consumption in offices all around the world.
+The program helps management to get reporting about marketing materials consumption in offices all around the world.
 
 The project is designed for quick and easy generation of reports, which helps to assess which marketing material is most popular.
 
@@ -95,7 +95,7 @@ You will be taken to the search page for the desired office, initially the entir
 To proceed, use the search page or `/reports/offices/<OFFICE_ID>/installation`
 
 
-![](dop_images/inst_report.png)
+![installation report](dop_images/inst_report.png)
 
 ---
 
@@ -159,4 +159,15 @@ Further, according to these links, a base diagram was created, with fields that 
 
 ![database structure](dop_images/database_diagram.png)
 
+### Functions
+
+#### get_or_create
+```ruby
+get_or_create(database_connection, db_table_name, [search_params,]) => object_id_in_table
+```
+The function works with any data and generates a request depending on the amount of data.
+
+Searches if there is no such object in the table, if it exists creates it, otherwise creates it
+
+_Future: add the ability to search only for certain fields_
 
