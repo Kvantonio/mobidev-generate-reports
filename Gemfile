@@ -16,4 +16,9 @@ gem 'erb'
 gem 'rack-router'
 
 # another
-gem 'rubocop'
+group :dev do
+  gem 'rubocop'
+end
+
+
+

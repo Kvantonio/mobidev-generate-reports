@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require 'pg'
+require_relative  './env.rb'
 
-db = PG::Connection.open(dbname: 'Task_one', password: '12345678')
-
-db.exec('DROP SCHEMA public CASCADE;')
-db.exec('CREATE SCHEMA public;')
+DB.exec('DROP SCHEMA public CASCADE;')
+DB.exec('CREATE SCHEMA public;')
