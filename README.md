@@ -50,6 +50,53 @@ cd ..
 rm -rf mobidev-generate-reports
 ```
 
+### Upload data
+_url: `/upload_data/`_
+
+After starting the program, follow the link "upload data" and download the file in `csv` format.
+
+If everything worked correctly and you did not receive an error message, then you can return to the main page.
+
+### States report
+_url: `/reports/states/<STATE_NAME>`_
+
+A report is generated with a list of offices for each state.
+
+To get information on a specific state, use `/reports/states/<STATE_NAME>`
+
+![states report](dop_images/state_report.png)
+
+### Fixtures report
+_url: `/reports/offices/fixture_types`_
+
+A report is generated with a list of offices for each fixtures type and their number in this office.
+
+If you want to see how many of which marketing materials are in a given office and their quantity by type, use `/reports/offices/<OFFICE_ID>/fixture_types`
+
+![fixtures report](dop_images/fixture_report.png)
+
+### Marketing materials cost report
+
+_url: `/reports/offices/marketing_materials`_
+
+A report is generated with a list of marketing materials for each offices and their cost in this office.
+
+To display the infographic, we used `Chart.js`
+
+![](dop_images/mm_report.png)
+
+### Office Installation Instructions report
+_url: `/reports/offices/installation`_
+
+This report should help staff in the office to place marketing materials in the right places
+
+You will be taken to the search page for the desired office, initially the entire list of offices will be shown.
+
+To proceed, use the search page or `/reports/offices/<OFFICE_ID>/installation`
+
+
+![](dop_images/inst_report.png)
+
 ---
 
 ## Documentation
@@ -112,4 +159,4 @@ Further, according to these links, a base diagram was created, with fields that 
 
 ![database structure](dop_images/database_diagram.png)
 
-### Upload data
+
