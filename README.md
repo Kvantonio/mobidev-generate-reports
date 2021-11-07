@@ -144,7 +144,7 @@ This database was developed, according to the term of reference and according to
 
 * This is a drawing according to which it was necessary to compose a database for storing data without duplicates and quickly searching through them.
 
-![office drawing](dop_images/office_drawing.png)
+![office drawing to data](dop_images/office_drawing.png)
 
 Upon close examination of this drawing, such connections between the data were revealed.
 
