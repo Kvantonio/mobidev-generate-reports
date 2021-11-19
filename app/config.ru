@@ -32,6 +32,6 @@ end
 
 use Rack::Static,
     urls: ['/css'],
-    root: './App/public'
+    root: './app/public'
 
 run my_app

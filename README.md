@@ -30,11 +30,11 @@ If everything is dote correctly, you will see the message: `Succeeded connection
 * To start, you need execute the last command
 
 ```zsh
-cd ./App
+cd ./app
 rackup
 
 # or this
-rackup ./App/config.ru
+rackup ./app/config.ru
 ```
 
 ### Deinstallation

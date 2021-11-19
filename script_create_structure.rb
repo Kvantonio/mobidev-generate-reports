@@ -2,21 +2,6 @@
 
 require_relative './env.rb'
 
-DB.exec("
-DO $$ BEGIN
-    CREATE TYPE fixtures_type AS ENUM (
-      'Door',
-      'Window',
-      'Wall poster',
-      'Table',
-      'ATM Wall',
-      'Flag',
-      'Standing desk'
-    );
-EXCEPTION
-    WHEN duplicate_object THEN null;
-END $$;")
-
 DB.exec('CREATE TABLE IF NOT EXISTS "offices" (
     "id" SERIAL PRIMARY KEY,
     "title" varchar NOT NULL,
@@ -65,7 +50,7 @@ DB.exec("CREATE TABLE IF NOT EXISTS fixtures (
     id SERIAL PRIMARY KEY,
     room_id int NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
     name varchar NOT NULL,
-    \"type\" fixtures_type
+    \"type\" varchar NOT NULL
   );
 do $$
 begin
