@@ -6,10 +6,14 @@ class StateReport
   def call(env)
     if !env['rack.route_params'][:state]
 
-      states = DB.exec('SELECT DISTINCT state FROM offices;')
-      @res = []
-      states.each do |state|
-        @res << DB.exec("SELECT * FROM offices WHERE state='#{state['state']}'")
+      offices = DB.exec('SELECT * FROM offices;')
+      @res = {}
+      offices.each do |office|
+        if @res[office["state"]]
+          @res[office["state"]] << office
+        else
+          @res[office["state"]] = [office]
+        end
       end
 
     else

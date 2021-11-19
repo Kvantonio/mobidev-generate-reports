@@ -24,13 +24,13 @@
 
 
 
-    <% @res.each do |state| %>
+    <% @res.each do |state, offices| %>
       <div class="row">
-        <div class="col-2 hr-block"><h2><%= state[0]["state"] %></h2></div>
+        <div class="col-2 hr-block"><h2><%= state %></h2></div>
         <div class="col-10 hr-block"></div>
 
         <div class="w-100 d-none d-md-block"></div>
-        <% state.each do |office| %>
+        <% offices.each do |office| %>
 
           <div class="col-2">
 
