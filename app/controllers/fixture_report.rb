@@ -28,6 +28,8 @@ class FixtureReport
     [200, { 'Content-Type' => 'text/html' }, [content.result(binding)]]
   end
 
+  private
+
   def get_offices_by_type
     fixtures = DB.exec_params('SELECT * FROM fixtures')
 

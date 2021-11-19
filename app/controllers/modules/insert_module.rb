@@ -2,7 +2,7 @@
 
 require 'pg'
 
-module InsertData
+module InsertModule
   def pars_and_add(all_data)
     all_data&.each do |data|
       office = get_or_create DB, 'offices', {

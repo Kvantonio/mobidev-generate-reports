@@ -1,6 +1,21 @@
 # frozen_string_literal: true
 
-require_relative './env.rb'
+require_relative './env'
+
+DB.exec("
+DO $$ BEGIN
+    CREATE TYPE fixtures_type AS ENUM (
+      'Door',
+      'Window',
+      'Wall poster',
+      'Table',
+      'ATM Wall',
+      'Flag',
+      'Standing desk'
+    );
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;")
 
 DB.exec('CREATE TABLE IF NOT EXISTS "offices" (
     "id" SERIAL PRIMARY KEY,
@@ -18,7 +33,6 @@ begin
 raise info \'Table "offices" created:  %\', now();
 end $$;
 ')
-
 
 DB.exec('CREATE TABLE IF NOT EXISTS "zones" (
     "id" SERIAL PRIMARY KEY,
@@ -50,7 +64,7 @@ DB.exec("CREATE TABLE IF NOT EXISTS fixtures (
     id SERIAL PRIMARY KEY,
     room_id int NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
     name varchar NOT NULL,
-    \"type\" varchar NOT NULL
+    \"type\" fixtures_type
   );
 do $$
 begin

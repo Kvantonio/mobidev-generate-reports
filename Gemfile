@@ -19,6 +19,3 @@ gem 'rack-router'
 group :dev do
   gem 'rubocop'
 end
-
-
-
