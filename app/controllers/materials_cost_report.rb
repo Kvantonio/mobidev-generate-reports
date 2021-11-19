@@ -2,7 +2,7 @@
 
 require_relative File.join(File.dirname(__FILE__), '../../env.rb')
 
-class CostReport
+class MaterialsCostReport
   def call(env)
     @data_materials = {}
 

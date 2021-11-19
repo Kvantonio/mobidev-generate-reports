@@ -5,7 +5,7 @@ require 'rack/router'
 require_relative 'controllers/upload_data'
 require_relative 'controllers/state_report'
 require_relative 'controllers/fixture_report'
-require_relative 'controllers/marketing_cost_report'
+require_relative 'controllers/materials_cost_report'
 require_relative 'controllers/search_office'
 require_relative 'controllers/office_installation_report'
 require_relative 'controllers/root'
@@ -22,7 +22,7 @@ my_app = Rack::Router.new do
   get '/reports/offices/fixture_types' => FixtureReport.new
   get '/reports/offices/:id/fixture_types' => FixtureReport.new
 
-  get '/reports/offices/marketing_materials' => CostReport.new
+  get '/reports/offices/marketing_materials' => MaterialsCostReport.new
 
   get '/reports/offices/installation' => SearchOffices.new
   post '/reports/offices/installation' => SearchOffices.new
