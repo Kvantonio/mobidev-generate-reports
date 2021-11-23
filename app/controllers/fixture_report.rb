@@ -31,22 +31,23 @@ class FixtureReport
   private
 
   def get_offices_by_type
-    fixtures = DB.exec_params('SELECT * FROM fixtures')
-
-    return nil unless fixtures.first
-
+    fixtures = DB.exec("SELECT fixtures.type f_type, offices.type, offices.address, offices.lob, offices.title FROM ((( fixtures
+         INNER JOIN rooms ON rooms.id = fixtures.room_id)
+         INNER JOIN zones ON zones.id = rooms.zone_id)
+         INNER JOIN offices ON offices.id = zones.office_id);")
     data = {}
-    fixtures.each do |fix|
-      data[fix['type']] = []
-    end
-
-    fixtures.each_with_index do |fixture, i|
-      offices = DB.exec("SELECT * FROM offices WHERE id = (
-          SELECT office_id FROM zones WHERE id = (
-              SELECT zone_id FROM rooms WHERE id = #{fixture['room_id']}
-           )
-          )")
-      data[fixtures[i]['type']] << offices[0]
+    fixtures.each do |office|
+      if data[office["f_type"]]
+        data[office["f_type"]] << {"title":office["title"],
+                                  "type":office["type"],
+                                  "address":office["address"],
+                                  "lob":office["lob"]}
+      else
+        data[office["f_type"]] = [{"title":office["title"],
+                                   "type":office["type"],
+                                   "address":office["address"],
+                                   "lob":office["lob"]}]
+      end
     end
 
     data.each do |k, v|
