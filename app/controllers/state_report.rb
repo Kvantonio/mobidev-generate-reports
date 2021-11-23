@@ -10,10 +10,10 @@ class StateReport
 
       offices = DB.exec('SELECT * FROM offices;')
       offices.each do |office|
-        if @res[office["state"]]
-          @res[office["state"]] << office
+        if @res[office['state']]
+          @res[office['state']] << office
         else
-          @res[office["state"]] = [office]
+          @res[office['state']] = [office]
         end
       end
 

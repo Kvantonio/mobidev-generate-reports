@@ -31,23 +31,19 @@ class FixtureReport
   private
 
   def get_offices_by_type
-    fixtures = DB.exec("SELECT fixtures.type f_type, offices.type, offices.address, offices.lob, offices.title FROM ((( fixtures
+    fixtures = DB.exec("SELECT fixtures.type f_type, offices.type, offices.address,
+         offices.lob, offices.title FROM ((( fixtures
          INNER JOIN rooms ON rooms.id = fixtures.room_id)
          INNER JOIN zones ON zones.id = rooms.zone_id)
          INNER JOIN offices ON offices.id = zones.office_id);")
-    data = {}
+
+    data = Hash.new { |hash, key| hash[key] = [] }
+
     fixtures.each do |office|
-      if data[office["f_type"]]
-        data[office["f_type"]] << {"title":office["title"],
-                                  "type":office["type"],
-                                  "address":office["address"],
-                                  "lob":office["lob"]}
-      else
-        data[office["f_type"]] = [{"title":office["title"],
-                                   "type":office["type"],
-                                   "address":office["address"],
-                                   "lob":office["lob"]}]
-      end
+      data[office['f_type']] << { "title": office['title'],
+                                  "type": office['type'],
+                                  "address": office['address'],
+                                  "lob": office['lob'] }
     end
 
     data.each do |k, v|
