@@ -6,19 +6,22 @@ class MaterialsCostReport
   def call(env)
     @data_materials = {}
 
-    offices = DB.exec('SELECT id, title FROM offices;')
-
     temp = {}
-    offices.each do |office|
-      @data_materials[office['title']] = {}
-      temp[office['title']] = DB.exec("SELECT marketing_materials.type, marketing_materials.cost
+
+    materials =  DB.exec("SELECT marketing_materials.type, marketing_materials.cost, offices.title as office_title
          FROM (((( offices
          INNER JOIN zones ON offices.id = zones.office_id)
          INNER JOIN rooms ON zones.id = rooms.zone_id)
          INNER JOIN fixtures ON rooms.id = fixtures.room_id)
          INNER JOIN marketing_materials ON fixtures.id = marketing_materials.fixture_id)
-         WHERE offices.id = #{office['id']};
          ")
+
+
+    materials.each do |material|
+      temp[material['office_title']] = [] if temp[material['office_title']] == nil
+      @data_materials[material['office_title']] = {} if @data_materials[material['office_title']] == nil
+
+      temp[material['office_title']] << material
     end
 
     @total_cost = []
